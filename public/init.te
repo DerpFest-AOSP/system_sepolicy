@@ -351,6 +351,7 @@ allow init {
 
 allow init {
   proc_abi
+  proc_cpu_alignment
   proc_dirty
   proc_hostname
   proc_hung_task
@@ -393,6 +394,7 @@ allow init {
 }:file w_file_perms;
 
 allow init {
+  proc_dt_firmware_android
   sysfs_dt_firmware_android
   sysfs_fs_ext4_features
 }:file r_file_perms;

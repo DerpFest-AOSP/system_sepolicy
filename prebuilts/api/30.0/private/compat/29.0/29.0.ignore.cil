@@ -88,6 +88,8 @@
     ota_metadata_file
     ota_prop
     prereboot_data_file
+    proc_cpu_alignment
+    proc_dt_firmware_android
     art_apex_dir
     rebootescrow_hal_prop
     securityfs
@@ -100,6 +102,7 @@
     staged_install_file
     storage_config_prop
     surfaceflinger_display_prop
+    sysfs_disk_stat
     sysfs_dm_verity
     system_adbd_prop
     system_config_service

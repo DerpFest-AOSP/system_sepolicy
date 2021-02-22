@@ -133,6 +133,8 @@
     perfetto_exec
     perfetto_tmpfs
     perfetto_traces_data_file
+    proc_cpu_alignment
+    proc_dt_firmware_android
     property_info
     recovery_socket
     role_service
@@ -161,6 +163,7 @@
     statscompanion_service
     storaged_data_file
     super_block_device
+    sysfs_disk_stat
     sysfs_fs_ext4_features
     system_boot_reason_prop
     system_bootstrap_lib_file
