@@ -444,6 +444,9 @@ type policyBinaryProperties struct {
 	// SELINUX_IGNORE_NEVERALLOWS.
 	Ignore_neverallow *bool
 
+	// Whether to build recovery specific policy or not. Default is false
+	Target_recovery *bool
+
 	// Whether this module is directly installable to one of the partitions. Default is true
 	Installable *bool
 }
@@ -478,7 +481,12 @@ func (c *policyBinary) stem() string {
 	return proptools.StringDefault(c.properties.Stem, c.Name())
 }
 
+func (c *policyBinary) RecoveryTarget() bool {
+	return proptools.BoolDefault(c.properties.Target_recovery, true)
+}
+
 func (c *policyBinary) GenerateAndroidBuildActions(ctx android.ModuleContext) {
+
 	if len(c.properties.Srcs) == 0 {
 		ctx.PropertyErrorf("srcs", "must be specified")
 		return
@@ -513,6 +521,7 @@ func (c *policyBinary) GenerateAndroidBuildActions(ctx android.ModuleContext) {
 			`ERROR: permissive domains not allowed in user builds\n` +
 			`List of invalid domains:`
 
+      if !c.RecoveryTarget() {
 		rule.Command().Text("if test").
 			FlagWithInput("-s ", permissiveDomains).
 			Text("; then echo").
@@ -521,6 +530,7 @@ func (c *policyBinary) GenerateAndroidBuildActions(ctx android.ModuleContext) {
 			Text("&& cat ").
 			Input(permissiveDomains).
 			Text("; exit 1; fi")
+	   }
 	}
 
 	out := android.PathForModuleOut(ctx, c.stem())
